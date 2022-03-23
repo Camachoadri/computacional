@@ -20,12 +20,23 @@ int main (void){
 
     //Damos valor a cuantos planetas vamos a tener inicialmente
 
-    N=32;
+    N=9;
 
     float h, t, t_f,  r[N], v[N], a[N], w[N], m[N];
 
     //Damos valores al resto de variables e inciamos las necesarias
     h=0.1;
+    r[0]=0;
+    r[1]=57910000;
+    r[2]=108200000;
+    r[3]=146600000;
+    r[4]=227940000;
+    r[5]=778330000;
+    r[6]=1429400000;
+    r[7]=2870990000;
+    r[8]=4504300000;
+    
+
 
     // Tiempo para el que queremos que acabe
     t_f=4;
