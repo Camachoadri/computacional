@@ -35,7 +35,7 @@ int main (void){
     r[6]=1429400000;
     r[7]=2870990000;
     r[8]=4504300000;
-    
+
 
 
     // Tiempo para el que queremos que acabe
