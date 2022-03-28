@@ -1,5 +1,7 @@
 #include <iostream>
 #include<cmath>
+#include<fstream>
+
 
 using namespace std;
 
@@ -24,6 +26,7 @@ int main (void){
     N=9;
 
     float h, t, t_f,  x[N], y[N], vx[N], vy[N],  ax[N], ay[N],  wx[N], wy[N], m[N];
+    ofstream fich;
 
     //Damos valores al resto de variables e inciamos las necesarias
     h=0.001;
@@ -46,15 +49,21 @@ int main (void){
 
     // Ahora inicializamos los valores de las velocidades
 
-    vx[0]=0;
-    vx[1]=48.92;
-    vx[2]=35.02;
-    vx[3]= 29.78;
-    vx[4]=24.07;
-    vx[5]=13.05;
-    vx[6]=9.64;
-    vx[7]= 6.81;
-    vx[8]=5.43;
+    vy[0]=0;
+    vy[1]=48.92;
+    vy[2]=35.02;
+    vy[3]= 29.78;
+    vy[4]=24.07;
+    vy[5]=13.05;
+    vy[6]=9.64;
+    vy[7]= 6.81;
+    vy[8]=5.43;
+
+    for ( i = 0; i < N; i++)
+    {
+        vx[i]=0;
+    }
+    
 
     // Por ultimo metemos las masas
 
@@ -80,7 +89,7 @@ int main (void){
 
     cambm(m , N);
     cambr(x , N);
-    cambv(vx, N);
+    cambv(vy, N);
     cambt(t);
     cambt(t_f);
 
@@ -88,19 +97,33 @@ int main (void){
 
     aceleracion(ax, ay, x, y, m, N);
 
-    //Comenzamos el buble
+    //Comenzamos el buble y abrimos el fichero de volcado
+
+    fich.open("datos.dat");
+
+
 
     for (t=0; t <= t_f ; t=t+h)
     {
+
         for ( i = 1; i < N; i++)
         {
+            //Escribimos en el archivo la posicion
+
+            fich << x[i] << ", " << y[i] << endl;
+
             //Calculamos la posicion del tiempo t+h
             x[i]=x[i]+ h*vx[i] + h*h*ax[i]/2.;
             y[i]=y[i]+ h*vy[i] + h*h*ay[i]/2.;
 
+            
             wx[i]= vx[i] + h*ax[i]/2.;
             wy[i]= vy[i] + h*ay[i]/2.;
         }
+
+        // Realizamos un salto de linea mas.
+
+        fich << endl;
 
         //Ahora sacamos las nuevas aceleraciones
 
@@ -117,7 +140,7 @@ int main (void){
         
     }
     
-    
+    fich.close();
 
     return 0;
 }
@@ -207,9 +230,9 @@ void aceleracion(float ax[], float ay[], float x[], float y[], float  m[], int N
 }
 
 
-void cambv(float v[], int N){
+void cambv(float vy[], int N){
 
-    float G, M_s, c,t1;
+    float G, M_s, c;
     int i;
     G= 6.67*pow(10,-11);
     M_s= 1.99*pow(10,30);
@@ -217,7 +240,7 @@ void cambv(float v[], int N){
 
     for ( i = 0; i < N; i++)
     {
-        v[i]=v[i]*pow(c/(G*M_s),1/2);
+        vy[i]=vy[i]*pow(c/(G*M_s),1/2.);
     }
     return;
 
