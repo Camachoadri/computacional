@@ -16,25 +16,47 @@ void aceleracion(float a[], float r[],float m[], int N);
 int main (void){
 
     // Vamos a declarar las variables que usaremos
-    int N;
+    int N, i;
 
     //Damos valor a cuantos planetas vamos a tener inicialmente
 
     N=9;
 
-    float h, t, t_f,  r[N], v[N], a[N], w[N], m[N];
+    float h, t, t_f,  x[N], y[N], vx[N], vy[N],  ax[N], ay[N],  wx[N], wy[N], m[N];
 
     //Damos valores al resto de variables e inciamos las necesarias
     h=0.1;
-    r[0]=0;
-    r[1]=57910000;
-    r[2]=108200000;
-    r[3]=146600000;
-    r[4]=227940000;
-    r[5]=778330000;
-    r[6]=1429400000;
-    r[7]=2870990000;
-    r[8]=4504300000;
+    x[0]=0;
+    x[1]=57910000;
+    x[2]=108200000;
+    x[3]=146600000;
+    x[4]=227940000;
+    x[5]=778330000;
+    x[6]=1429400000;
+    x[7]=2870990000;
+    x[8]=4504300000;
+
+    // Inicializamos la y a 0 con un bucle
+
+    for ( i = 0; i < N; i++)
+    {
+        y[i]=0;
+    }
+
+    // Ahora inicializamos los valores de las velocidades
+
+    vx[0]=0;
+    vx[1]=48.92;
+    vx[2]=35.02;
+    vx[3]= 29.78;
+    vx[4]=24.07;
+    vx[5]=13.05;
+    vx[6]=9.64;
+    vx[7]= 6.81;
+    vx[8]=5.43;
+
+
+    
 
 
 
@@ -42,8 +64,9 @@ int main (void){
     t_f=4;
     //Ahora nombraremos las constantes del problema
 
-    cambm(m, N);
-    cambr(r, N);
+    cambm(m , N);
+    cambr(x , N);
+    cambv(vx, N);
     cambt(t);
     cambt(t_f);
 
@@ -127,6 +150,23 @@ void aceleracion(float a[], float r[],float  m[], int N){
     }
     
 
+
+}
+
+
+void cambv(float v[], int N){
+
+    float G, M_s, c,t1;
+    int i;
+    G= 6.67*pow(10,-11);
+    M_s= 1.99*pow(10,30);
+    c= 1.496*pow(10,11);
+
+    for ( i = 0; i < N; i++)
+    {
+        v[i]=v[i]*pow(c/(G*M_s),1/2);
+    }
+    return;
 
 }
 
