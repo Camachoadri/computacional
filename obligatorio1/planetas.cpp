@@ -29,7 +29,7 @@ int main (void){
     ofstream fich;
 
     //Damos valores al resto de variables e inciamos las necesarias
-    h=0.001;
+    h=0.01;
     x[0]=0;
     x[1]=57910000;
     x[2]=108200000;
@@ -50,14 +50,14 @@ int main (void){
     // Ahora inicializamos los valores de las velocidades
 
     vy[0]=0;
-    vy[1]=48.92;
-    vy[2]=35.02;
-    vy[3]= 29.78;
-    vy[4]=24.07;
-    vy[5]=13.05;
-    vy[6]=9.64;
-    vy[7]= 6.81;
-    vy[8]=5.43;
+    vy[1]=48000.92;
+    vy[2]=35000.02;
+    vy[3]= 29000.78;
+    vy[4]=24000.07;
+    vy[5]=13000.05;
+    vy[6]=9000.64;
+    vy[7]= 6000.81;
+    vy[8]=5000.43;
 
     for ( i = 0; i < N; i++)
     {
@@ -84,7 +84,7 @@ int main (void){
 
 
     // Tiempo para el que queremos que acabe
-    t_f=10;
+    t_f=1;
     //Ahora nombraremos las constantes del problema
 
     cambm(m , N);
