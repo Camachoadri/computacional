@@ -99,7 +99,7 @@ int main (void){
 
     //Comenzamos el buble y abrimos el fichero de volcado
 
-    fich.open("datos.dat");
+    fich.open("planets_data.dat");
 
 
 
