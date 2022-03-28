@@ -67,7 +67,7 @@ int main (void){
     m[6]=5.98*pow(10,26);
     m[7]= 8.67*pow(10,25);
     m[8]=1.05*pow(10,26);
-    
+
 
 
     
@@ -75,7 +75,7 @@ int main (void){
 
 
     // Tiempo para el que queremos que acabe
-    t_f=4;
+    t_f=10;
     //Ahora nombraremos las constantes del problema
 
     cambm(m , N);
@@ -92,7 +92,7 @@ int main (void){
 
     for (t=0; t <= t_f ; t=t+h)
     {
-        for ( i = 0; i < N; i++)
+        for ( i = 1; i < N; i++)
         {
             //Calculamos la posicion del tiempo t+h
             x[i]=x[i]+ h*vx[i] + h*h*ax[i]/2.;
@@ -108,7 +108,7 @@ int main (void){
 
         //Recalculamos la nueva velocidad en t+h
 
-        for ( i = 0; i < N; i++)
+        for ( i = 1; i < N; i++)
         {
             vx[i]= wx[i] +h*ax[i]/2.;
             vy[i]= wy[i] +h*ay[i]/2.;
