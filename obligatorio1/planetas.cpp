@@ -29,16 +29,16 @@ int main (void){
     ofstream fich;
 
     //Damos valores al resto de variables e inciamos las necesarias
-    h=0.01;
+ 
     x[0]=0;
-    x[1]=57910000;
-    x[2]=108200000;
-    x[3]=146600000;
-    x[4]=227940000;
-    x[5]=778330000;
-    x[6]=1429400000;
-    x[7]=2870990000;
-    x[8]=4504300000;
+    x[1]=57910000000;
+    x[2]=108200000000;
+    x[3]=146600000000;
+    x[4]=227940000000;
+    x[5]=778330000000;
+    x[6]=1429400000000;
+    x[7]=2870990000000;
+    x[8]=4504300000000;
 
     // Inicializamos la y a 0 con un bucle
 
@@ -52,11 +52,11 @@ int main (void){
     vy[0]=0;
     vy[1]=48000.92;
     vy[2]=35000.02;
-    vy[3]= 29000.78;
+    vy[3]=29000.78;
     vy[4]=24000.07;
     vy[5]=13000.05;
     vy[6]=9000.64;
-    vy[7]= 6000.81;
+    vy[7]=6000.81;
     vy[8]=5000.43;
 
     for ( i = 0; i < N; i++)
@@ -84,6 +84,7 @@ int main (void){
 
 
     // Tiempo para el que queremos que acabe
+    h=0.001;
     t_f=1;
     //Ahora nombraremos las constantes del problema
 
@@ -190,13 +191,6 @@ void aceleracion(float ax[], float ay[], float x[], float y[], float  m[], int N
 
     int i,j;
     float r[N];
-
-    // Calculamos la distancia, la cual necesitaremos mas tarde par ano recalcularla todo el rato
-
-    for ( i = 0; i < N; i++)
-    {
-        r[i]=sqrt(x[i]*x[i]+y[i]*y[i]);
-    }
     
 
     for ( i = 0; i < N; i++)
@@ -207,19 +201,19 @@ void aceleracion(float ax[], float ay[], float x[], float y[], float  m[], int N
     
 
 
-    for (i = 0; i < N; i++)
+    for (i = 1; i < N; i++)
     {
-        for (j = 0; j < i; j++)
+        for (j = 1; j < i; j++)
         {
-            ax[i]=ax[i]-m[j]*(x[i]-x[j])/pow(abs(r[i]-r[j]),3);
-            ay[i]=ay[i]-m[j]*(y[i]-y[j])/pow(abs(r[i]-r[j]),3);
+            ax[i]=(ax[i]-m[j]*(x[i]-x[j])/pow(abs(sqrt((x[i]-x[j])*(x[i]-x[j])+(y[i]-y[j])*(y[i]-y[j]))),3));
+            ay[i]=(ay[i]-m[j]*(y[i]-y[j])/pow(abs(sqrt((x[i]-x[j])*(x[i]-x[j])+(y[i]-y[j])*(y[i]-y[j]))),3));
         }
         
         
         for (j = i+1; j < N; j++)
         {
-            ax[i]=ax[i]-m[j]*(x[i]-x[j])/pow(abs(r[i]-r[j]),3);
-            ay[i]=ay[i]-m[j]*(y[i]-y[j])/pow(abs(r[i]-r[j]),3);
+            ax[i]=(ax[i]-m[j]*(x[i]-x[j])/pow(abs(sqrt((x[i]-x[j])*(x[i]-x[j])+(y[i]-y[j])*(y[i]-y[j]))),3));
+            ay[i]=(ay[i]-m[j]*(y[i]-y[j])/pow(abs(sqrt((x[i]-x[j])*(x[i]-x[j])+(y[i]-y[j])*(y[i]-y[j]))),3));
         }
         
         
