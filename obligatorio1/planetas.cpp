@@ -39,7 +39,7 @@ int main (void){
     x[5]=778330000000;
     x[6]=1429400000000;
     x[7]=2870990000000;
-    x[8]=4504300000000;
+    x[8]=7000000000000;
 
     // Inicializamos la y a 0 con un bucle
 
@@ -250,8 +250,9 @@ void cambv(float vy[], int N){
 float cenergia(float vx[], float vy[], float x[],float m[],  float y[], int N){
 
     int i;
-    float E=0, G, c= 1.496*pow(10,11);
+    float E, G, c= 1.496*pow(10,11);
     G= 6.67*pow(10,-11);
+    E=0;
 
 
     //Calculamos las velocidades y distancias en modulo
@@ -261,7 +262,7 @@ float cenergia(float vx[], float vy[], float x[],float m[],  float y[], int N){
 
     for ( i = 1; i < N; i++)
     {
-        E=E+0.5*m[i]*(vx[i]*vx[i]+vy[i]*vy[i])-G*G*m[i]*m[0]/(sqrt(x[i]*x[i]+y[i]*y[i])*c*c*c);
+        E=E+0.5*m[i]*abs((vx[i]*vx[i]+vy[i]*vy[i]));
     }
 
 
