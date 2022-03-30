@@ -245,3 +245,25 @@ void cambv(float vy[], int N){
     return;
 
 }
+
+float energia(float vx[], float vy[], float x[],float m[],  float y[], int N){
+
+    int i;
+    float E=0, G;
+    G= 6.67*pow(10,-11);
+
+
+    //Calculamos las velocidades y distancias en modulo
+
+
+    //Le vamos a dar las velocidades y las posiciones de los planetas y calculará la energia total como al suma de las energias de todos
+
+    for ( i = 0; i < N; i++)
+    {
+        E=E+0.5*m[i]*(vx[i]*vx[i]+vy[i]*vy[i])-G*m[i]*m[0]/sqrt(x[i]*x[i]+y[i]*y[i]);
+    }
+
+
+
+
+}
