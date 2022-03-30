@@ -52,10 +52,10 @@ file_in = "planets_data.dat" # Nombre del fichero de datos
 file_out = "planetas" # Nombre del fichero de salida (sin extensión)
 
 # Límites de los ejes X e Y
-x_min = -5
-x_max = 5
-y_min = -5 
-y_max = 5
+x_min = -35
+x_max = 35
+y_min = -35 
+y_max = 35
 
 interval = 100 # Tiempo entre fotogramas en milisegundos
 show_trail = True # Muestra la "estela" del planeta

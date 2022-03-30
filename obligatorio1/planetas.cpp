@@ -10,6 +10,7 @@ float cambt(float t);
 void cambm(float m[], int N);
 void aceleracion(float ax[], float ay[], float x[], float y[], float  m[], int N);
 void cambv(float v[], int N);
+float energia(float vx, float vy, float x, float y, int N);
 
 
 //Vamos a crear las funciones que nos seran utiles luego
@@ -84,8 +85,8 @@ int main (void){
 
 
     // Tiempo para el que queremos que acabe
-    h=0.001;
-    t_f=1;
+    h=0.01;
+    t_f=1000;
     //Ahora nombraremos las constantes del problema
 
     cambm(m , N);
@@ -107,7 +108,7 @@ int main (void){
     for (t=0; t <= t_f ; t=t+h)
     {
 
-        for ( i = 1; i < N; i++)
+        for ( i = 0; i < N; i++)
         {
             //Escribimos en el archivo la posicion
 
@@ -132,7 +133,7 @@ int main (void){
 
         //Recalculamos la nueva velocidad en t+h
 
-        for ( i = 1; i < N; i++)
+        for ( i = 0; i < N; i++)
         {
             vx[i]= wx[i] +h*ax[i]/2.;
             vy[i]= wy[i] +h*ay[i]/2.;
@@ -203,7 +204,7 @@ void aceleracion(float ax[], float ay[], float x[], float y[], float  m[], int N
 
     for (i = 1; i < N; i++)
     {
-        for (j = 1; j < i; j++)
+        for (j = 0; j < i; j++)
         {
             ax[i]=(ax[i]-m[j]*(x[i]-x[j])/pow(abs(sqrt((x[i]-x[j])*(x[i]-x[j])+(y[i]-y[j])*(y[i]-y[j]))),3));
             ay[i]=(ay[i]-m[j]*(y[i]-y[j])/pow(abs(sqrt((x[i]-x[j])*(x[i]-x[j])+(y[i]-y[j])*(y[i]-y[j]))),3));
@@ -240,4 +241,24 @@ void cambv(float vy[], int N){
 
 }
 
+float energia(float vx, float vy, float x, float y, int N){
 
+    int i;
+    float E=0, G;
+    G= 6.67*pow(10,-11);
+
+
+    //Calculamos las velocidades y distancias en modulo
+
+
+    //Le vamos a dar las velocidades y las posiciones de los planetas y calculará la energia total como al suma de las energias de todos
+
+    for ( i = 0; i < N; i++)
+    {
+        E=E+0.5*m[i]*(vx[i]*vx[i]+vy[i]*vy[i])-G*m[i]*m[0]/r[i];
+    }
+    
+
+
+
+}
