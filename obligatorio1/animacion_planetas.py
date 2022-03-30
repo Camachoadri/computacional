@@ -57,7 +57,7 @@ x_max = 35
 y_min = -35 
 y_max = 35
 
-interval = 100 # Tiempo entre fotogramas en milisegundos
+interval = 1000 # Tiempo entre fotogramas en milisegundos
 show_trail = True # Muestra la "estela" del planeta
 trail_width = 0.5 # Ancho de la estela
 save_to_file = True # False: muestra la animación por pantalla,

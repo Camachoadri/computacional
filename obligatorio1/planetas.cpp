@@ -110,7 +110,7 @@ int main (void){
 
         //Vamos a volcar las energias en un fichero con el tiempo
         E= cenergia(vx, vy, x, y, m, N);
-        energia << t <<  E << endl;
+        energia << t <<  "  " << E << endl;
 
 
         for ( i = 0; i < N; i++)
@@ -250,7 +250,7 @@ void cambv(float vy[], int N){
 float cenergia(float vx[], float vy[], float x[],float m[],  float y[], int N){
 
     int i;
-    float E=0, G;
+    float E=0, G, c= 1.496*pow(10,11);
     G= 6.67*pow(10,-11);
 
 
@@ -259,12 +259,12 @@ float cenergia(float vx[], float vy[], float x[],float m[],  float y[], int N){
 
     //Le vamos a dar las velocidades y las posiciones de los planetas y calculará la energia total como al suma de las energias de todos
 
-    for ( i = 0; i < N; i++)
+    for ( i = 1; i < N; i++)
     {
-        E=E+0.5*m[i]*(vx[i]*vx[i]+vy[i]*vy[i])-G*m[i]*m[0]/sqrt(x[i]*x[i]+y[i]*y[i]);
+        E=E+0.5*m[i]*(vx[i]*vx[i]+vy[i]*vy[i])-G*G*m[i]*m[0]/(sqrt(x[i]*x[i]+y[i]*y[i])*c*c*c);
     }
 
 
-
+    return E;
 
 }
