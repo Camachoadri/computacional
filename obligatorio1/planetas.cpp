@@ -10,7 +10,7 @@ float cambt(float t);
 void cambm(float m[], int N);
 void aceleracion(float ax[], float ay[], float x[], float y[], float  m[], int N);
 void cambv(float v[], int N);
-float energia(float vx[], float vy[], float x[], float y[], float m[], int N);
+float cenergia(float vx[], float vy[], float x[], float y[], float m[], int N);
 
 
 //Vamos a crear las funciones que nos seran utiles luego
@@ -26,7 +26,7 @@ int main (void){
 
     N=9;
 
-    float h, t, t_f,  x[N], y[N], vx[N], vy[N],  ax[N], ay[N],  wx[N], wy[N], m[N];
+    float h, t, t_f,  x[N], y[N], vx[N], vy[N],  ax[N], ay[N],  wx[N], wy[N], m[N], E;
     ofstream fich, energia;
 
     //Damos valores al resto de variables e inciamos las necesarias
@@ -109,7 +109,8 @@ int main (void){
     {
 
         //Vamos a volcar las energias en un fichero con el tiempo
-
+        E= cenergia(vx, vy, x, y, m, N);
+        energia << t <<  E << endl;
 
 
         for ( i = 0; i < N; i++)
@@ -246,7 +247,7 @@ void cambv(float vy[], int N){
 
 }
 
-float energia(float vx[], float vy[], float x[],float m[],  float y[], int N){
+float cenergia(float vx[], float vy[], float x[],float m[],  float y[], int N){
 
     int i;
     float E=0, G;
