@@ -10,7 +10,7 @@ float cambt(float t);
 void cambm(float m[], int N);
 void aceleracion(float ax[], float ay[], float x[], float y[], float  m[], int N);
 void cambv(float v[], int N);
-float energia(float vx, float vy, float x, float y, int N);
+float energia(float vx[], float vy[], float x[], float y[], float m[], int N);
 
 
 //Vamos a crear las funciones que nos seran utiles luego
@@ -27,7 +27,7 @@ int main (void){
     N=9;
 
     float h, t, t_f,  x[N], y[N], vx[N], vy[N],  ax[N], ay[N],  wx[N], wy[N], m[N];
-    ofstream fich;
+    ofstream fich, energia;
 
     //Damos valores al resto de variables e inciamos las necesarias
  
@@ -85,7 +85,7 @@ int main (void){
 
 
     // Tiempo para el que queremos que acabe
-    h=0.01;
+    h=0.1;
     t_f=1000;
     //Ahora nombraremos las constantes del problema
 
@@ -102,11 +102,15 @@ int main (void){
     //Comenzamos el buble y abrimos el fichero de volcado
 
     fich.open("planets_data.dat");
-
+    energia.open("energias.dat");
 
 
     for (t=0; t <= t_f ; t=t+h)
     {
+
+        //Vamos a volcar las energias en un fichero con el tiempo
+
+
 
         for ( i = 0; i < N; i++)
         {
@@ -143,6 +147,7 @@ int main (void){
     }
     
     fich.close();
+    energia.close();
 
     return 0;
 }
@@ -238,27 +243,5 @@ void cambv(float vy[], int N){
         vy[i]=vy[i]*pow(c/(G*M_s),1/2.);
     }
     return;
-
-}
-
-float energia(float vx, float vy, float x, float y, int N){
-
-    int i;
-    float E=0, G;
-    G= 6.67*pow(10,-11);
-
-
-    //Calculamos las velocidades y distancias en modulo
-
-
-    //Le vamos a dar las velocidades y las posiciones de los planetas y calculará la energia total como al suma de las energias de todos
-
-    for ( i = 0; i < N; i++)
-    {
-        E=E+0.5*m[i]*(vx[i]*vx[i]+vy[i]*vy[i])-G*m[i]*m[0]/r[i];
-    }
-    
-
-
 
 }
