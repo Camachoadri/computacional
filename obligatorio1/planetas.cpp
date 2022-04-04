@@ -31,9 +31,9 @@ int main (void){
 
     N=9;
 
-    bool cont[N], cond[N];
+    bool cont[N], cond[N], compr[N];
 
-    float h, t, t_f,  x[N], y[N], vx[N], vy[N],  ax[N], ay[N],  wx[N], wy[N], m[N], E;
+    float h, t, t_f, tp[N],  x[N], y[N], vx[N], vy[N],  ax[N], ay[N],  wx[N], wy[N], m[N], E;
     ofstream fich, energia, geocentrico, periodo;
 
     //Damos valores al resto de variables e inciamos las necesarias
@@ -118,6 +118,7 @@ int main (void){
         {
             cond[i]= false;
             cont[i]= false;
+            compr[i]=false;
         }
 
 
@@ -134,17 +135,24 @@ int main (void){
         {
             //Vamos a comprobar periodos
 
-            if (x[i]<0)
+            if (y[i]<0)
             {
                 cond[i]= true;
+                tp[i]=i;
             }
 
-            if (cond[i]== true && cont[i]==false)
+            if (cond[i]==true && y[i]>0)
             {
-                if (x[i]>0)
+                cont[i] = true;
+            }
+            
+
+            if (cond[i]== true && cont[i]==true && compr[i]== false)
+            {
+                if (y[i]<0)
                 {
-                    periodo << "Periodo:" << t*58.1 << ", Planeta: " << i << endl;
-                    cont[i] = true;
+                    periodo << "Periodo:" << (t-tp[i])*58.1 << ", Planeta: " << i << endl;
+                    compr[i]= true;
                 }
                 
             }
