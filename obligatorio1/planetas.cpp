@@ -86,7 +86,7 @@ int main (void){
 
     // Tiempo para el que queremos que acabe
     h=0.1;
-    t_f=1000;
+    t_f=100;
     //Ahora nombraremos las constantes del problema
 
     cambm(m , N);
@@ -135,6 +135,7 @@ int main (void){
         // Realizamos un salto de linea mas.
 
         fich << endl;
+        geocentrico << endl;
 
         //Ahora sacamos las nuevas aceleraciones
 
