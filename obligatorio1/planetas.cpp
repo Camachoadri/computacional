@@ -20,14 +20,14 @@ float cenergia(float vx[], float vy[], float x[], float y[], float m[], int N);
 int main (void){
 
     // Vamos a declarar las variables que usaremos
-    int N, i;
+    int N, i,contador;
 
     //Damos valor a cuantos planetas vamos a tener inicialmente
 
     N=9;
 
     float h, t, t_f,  x[N], y[N], vx[N], vy[N],  ax[N], ay[N],  wx[N], wy[N], m[N], E;
-    ofstream fich, energia;
+    ofstream fich, energia, geocentrico;
 
     //Damos valores al resto de variables e inciamos las necesarias
  
@@ -103,6 +103,7 @@ int main (void){
 
     fich.open("planets_data.dat");
     energia.open("energias.dat");
+    geocentrico.open("geocentrico.dat");
 
 
     for (t=0; t <= t_f ; t=t+h)
@@ -115,9 +116,12 @@ int main (void){
 
         for ( i = 0; i < N; i++)
         {
-            //Escribimos en el archivo la posicion
+            //Escribimos en el archivo la posicion y las realtivas a la tierra
+
 
             fich << x[i] << ", " << y[i] << endl;
+
+            geocentrico << x[i]-x[3] <<  ", " << y[i]-y[3] << endl;
 
             //Calculamos la posicion del tiempo t+h
             x[i]=x[i]+ h*vx[i] + h*h*ax[i]/2.;
@@ -149,6 +153,7 @@ int main (void){
     
     fich.close();
     energia.close();
+    geocentrico.close();
 
     return 0;
 }
