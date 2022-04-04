@@ -20,14 +20,21 @@ float cenergia(float vx[], float vy[], float x[], float y[], float m[], int N);
 int main (void){
 
     // Vamos a declarar las variables que usaremos
-    int N, i,contador;
+    int N, i;
+    float G, M_s, c,t1;
+    G= 6.67*pow(10,-11);
+    M_s= 1.99*pow(10,30);
+    c= 1.496*pow(10,11);
+  
 
     //Damos valor a cuantos planetas vamos a tener inicialmente
 
     N=9;
 
+    bool cont[N], cond[N];
+
     float h, t, t_f,  x[N], y[N], vx[N], vy[N],  ax[N], ay[N],  wx[N], wy[N], m[N], E;
-    ofstream fich, energia, geocentrico;
+    ofstream fich, energia, geocentrico, periodo;
 
     //Damos valores al resto de variables e inciamos las necesarias
  
@@ -39,7 +46,7 @@ int main (void){
     x[5]=778330000000;
     x[6]=1429400000000;
     x[7]=2870990000000;
-    x[8]=7000000000000;
+    x[8]=4504300000000;
 
     // Inicializamos la y a 0 con un bucle
 
@@ -86,7 +93,7 @@ int main (void){
 
     // Tiempo para el que queremos que acabe
     h=0.1;
-    t_f=100;
+    t_f=10000;
     //Ahora nombraremos las constantes del problema
 
     cambm(m , N);
@@ -104,6 +111,14 @@ int main (void){
     fich.open("planets_data.dat");
     energia.open("energias.dat");
     geocentrico.open("geocentrico.dat");
+    periodo.open("periodos.dat");
+
+
+        for ( i = 0; i < N; i++)
+        {
+            cond[i]= false;
+            cont[i]= false;
+        }
 
 
     for (t=0; t <= t_f ; t=t+h)
@@ -112,10 +127,31 @@ int main (void){
         //Vamos a volcar las energias en un fichero con el tiempo
         E= cenergia(vx, vy, x, y, m, N);
         energia << t <<  "  " << E << endl;
+        
 
 
         for ( i = 0; i < N; i++)
         {
+            //Vamos a comprobar periodos
+
+            if (x[i]<0)
+            {
+                cond[i]= true;
+            }
+
+            if (cond[i]== true && cont[i]==false)
+            {
+                if (x[i]>0)
+                {
+                    periodo << "Periodo:" << t*58.1 << ", Planeta: " << i << endl;
+                    cont[i] = true;
+                }
+                
+            }
+            
+
+                
+
             //Escribimos en el archivo la posicion y las realtivas a la tierra
 
 
@@ -155,6 +191,7 @@ int main (void){
     fich.close();
     energia.close();
     geocentrico.close();
+    periodo.close();
 
     return 0;
 }
