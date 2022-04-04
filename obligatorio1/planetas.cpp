@@ -38,6 +38,7 @@ int main (void){
 
     //Damos valores al resto de variables e inciamos las necesarias
  
+ /* 
     x[0]=0;
     x[1]=57910000000;
     x[2]=108200000000;
@@ -47,6 +48,18 @@ int main (void){
     x[6]=1429400000000;
     x[7]=2870990000000;
     x[8]=4504300000000;
+ 
+*/
+    x[0]=0;
+    x[8]=4504300000000;
+    x[7]=4504300000000/(1+1/2.);
+    x[6]=4504300000000/(1+1/3.);
+    x[5]=4504300000000/(1+1/4.);
+    x[4]=4504300000000/(1+1/5.);
+    x[3]=4504300000000/(1+1/6.);
+    x[2]=4504300000000/(1+1/7.);
+    x[1]=4504300000000/(1+1/8.);
+
 
     // Inicializamos la y a 0 con un bucle
 
@@ -93,7 +106,7 @@ int main (void){
 
     // Tiempo para el que queremos que acabe
     h=0.1;
-    t_f=10000;
+    t_f=1000;
     //Ahora nombraremos las constantes del problema
 
     cambm(m , N);
@@ -301,7 +314,8 @@ void cambv(float vy[], int N){
 float cenergia(float vx[], float vy[], float x[],float m[],  float y[], int N){
 
     int i;
-    float E, G, c= 1.496*pow(10,11);
+    float E, G, c= 1.496*pow(10,11), M_s;
+    M_s= 1.99*pow(10,30);
     G= 6.67*pow(10,-11);
     E=0;
 
@@ -313,7 +327,7 @@ float cenergia(float vx[], float vy[], float x[],float m[],  float y[], int N){
 
     for ( i = 1; i < N; i++)
     {
-        E=E+0.5*m[i]*abs((vx[i]*vx[i]+vy[i]*vy[i]));
+        E=E+0.5*m[i]*abs((vx[i]*vx[i]+vy[i]*vy[i]))-M_s*G*M_s*m[i]/sqrt(pow(x[i],2)+pow(y[i],2));
     }
 
 
