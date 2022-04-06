@@ -9,13 +9,13 @@ using namespace std;
 int main (void){
 
     float T;
-    int N=16, i, j,k,n,m,aux;
+    int N=64, i, j,k,n,m,aux;
     float s[N][N],p, DE, xi;
     ofstream fich;
 
     //Inicializamso las variables necesarias
 
-    T=1;
+    T=0.0000001;
     for ( i = 0; i < N; i++)
     {
         for ( j = 0; j < N; j++)
