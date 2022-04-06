@@ -9,8 +9,9 @@ using namespace std;
 int main (void){
 
     float T;
-    int N=1000, i, j,n,m;
-    float s[N][N],p, DE;
+    int N=64, i, j,k,n,m;
+    float s[N][N],p, DE, xi;
+    ofstream fich;
 
     //Inicializamso las variables necesarias
 
@@ -24,12 +25,31 @@ int main (void){
         
     }
     
-    for ( i = 0; i < N*N; i++)
+    fich.open("ising_data.dat");
+
+
+
+    for ( i = 0; i < 100*N*N; i++)
     {
         //Escogemos dos numeros al azar de los posibles que tenemos
 
         n=rand()%(N-1);
         m=rand()%(N-1);
+
+        //Escribamos la matriz en el fichero
+
+        for ( i = 0; i < N; i++)
+        {
+            for (j = 0; j < N; j++)
+            {
+                fich << s[i][j] << ", ";
+            }
+            
+            fich << endl;
+        }
+        
+
+        //Procedemso a calcular deltaE según todos los posibles casos, basandonos en las condiciones periodicas para no salirnos de la matriz
 
         if (n+1>N)
         {
@@ -82,10 +102,23 @@ int main (void){
         }
         
 
-        p = min(1,exp(-DE/T));
+        p = min(float(1),exp(-DE/T));
+
+        //Calculamos un numero aleatorio nuevo, esta vez dividimos entre el maximo para que esté entre 0 y 1
+
+        xi = (rand()%(N-1))/N;
+
+        //Si xi es menor que p, cambiamos el signo de nuestro elemento
+
+        if (xi<p)
+        {
+            s[n][m]= -s[n][m];
+        }
+        
 
     }
     
+    fich.close();
 
     return 0;
 
