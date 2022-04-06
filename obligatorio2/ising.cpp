@@ -9,7 +9,7 @@ using namespace std;
 int main (void){
 
     float T;
-    int N=64, i, j,k,n,m;
+    int N=16, i, j,k,n,m,aux;
     float s[N][N],p, DE, xi;
     ofstream fich;
 
@@ -24,7 +24,26 @@ int main (void){
         }
         
     }
+
+
+/* Si queremos que sean aleatorias   
+
+    for ( i = 0; i < N; i++)
+    {
+        for ( j = 0; j < N; j++)
+        {
+            if(rand()%(11)<5){
+                s[i][j]=-1;
+            }
+            else if(rand()%(11)>5){
+                s[i][j]=1;    
+            }           
+        }
+        
+    }
     
+  
+*/  
     fich.open("ising_data.dat");
 
 
@@ -33,20 +52,28 @@ int main (void){
     {
         //Escogemos dos numeros al azar de los posibles que tenemos
 
-        n=rand()%(N-1);
-        m=rand()%(N-1);
+        n=rand()%(N);
+        m=rand()%(N);
 
         //Escribamos la matriz en el fichero
 
-        for ( i = 0; i < N; i++)
+        aux= (i%(N*N));
+
+        if ((i%(N*N))==0)
         {
-            for (j = 0; j < N; j++)
+                for ( k = 0; k < N; k++)
             {
-                fich << s[i][j] << ", ";
+                for (j = 0; j < N-1; j++)
+                {
+                    fich << s[k][j] << ", ";
+                }   
+
+                fich << s[k][N-1] << endl;
+
             }
-            
-            fich << endl;
+                fich << endl;
         }
+        
         
 
         //Procedemso a calcular deltaE según todos los posibles casos, basandonos en las condiciones periodicas para no salirnos de la matriz
