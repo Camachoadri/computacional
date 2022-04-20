@@ -20,7 +20,7 @@ int main (void){
 
     //Inicializamso las variables necesarias
 
-    T=0.05;
+    T=3.;
 
 
     for ( i = 0; i < N; i++)
@@ -92,15 +92,15 @@ int main (void){
         {
             if (m+1>N)
             {
-                DE=2*s[n][m]*(s[1][m]+s[n-1][m]+s[n][1]+s[n][m-1]);
+                DE=2*s[n][m]*(s[0][m]+s[n-1][m]+s[n][0]+s[n][m-1]);
             }
             else if (m==0)
             {
-                DE=2*s[n][m]*(s[1][m]+s[n-1][m]+s[n][m+1]+s[n][N-1]);
+                DE=2*s[n][m]*(s[0][m]+s[n-1][m]+s[n][m+1]+s[n][N-1]);
             }
             else{
 
-                DE=2*s[n][m]*(s[1][m]+s[n-1][m]+s[n][m+1]+s[n][m-1]);
+                DE=2*s[n][m]*(s[0][m]+s[n-1][m]+s[n][m+1]+s[n][m-1]);
             }
         }
         else if (n==0)
@@ -125,7 +125,7 @@ int main (void){
             {
                 DE=2*s[n][m]*(s[n+1][m]+s[n-1][m]+s[n][1]+s[n][m-1]);
             }
-            else if (m==0)
+            if (m==0)
             {
                 DE=2*s[n][m]*(s[n+1][m]+s[n-1][m]+s[n][m+1]+s[n][N-1]);
             }
@@ -137,7 +137,6 @@ int main (void){
             
 
         }
-        
 
         p = min(float(1),exp(-DE/T));
 
