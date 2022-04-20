@@ -15,7 +15,9 @@ int main (void){
 
     //Inicializamso las variables necesarias
 
-    T=0.0000001;
+    T=0.000000001;
+
+ /*
     for ( i = 0; i < N; i++)
     {
         for ( j = 0; j < N; j++)
@@ -24,31 +26,32 @@ int main (void){
         }
         
     }
+*/
 
+ //Si queremos que sean aleatorias   
 
-/* Si queremos que sean aleatorias   
 
     for ( i = 0; i < N; i++)
     {
         for ( j = 0; j < N; j++)
         {
-            if(rand()%(11)<5){
-                s[i][j]=-1;
+            if((rand()%(11))<5){
+                s[i][j]=-1.;
             }
-            else if(rand()%(11)>5){
-                s[i][j]=1;    
+            else{
+                s[i][j]=1.;    
             }           
         }
         
     }
     
+
   
-*/  
     fich.open("ising_data.dat");
 
 
 
-    for ( i = 0; i < 100*N*N; i++)
+    for ( i = 0; i < 200*N*N; i++)
     {
         //Escogemos dos numeros al azar de los posibles que tenemos
 
