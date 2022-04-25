@@ -52,11 +52,11 @@ int main (void){
     
 */
   
-    fich.open("ising_data.dat");
+ //   fich.open("ising_data.dat");
 
 
 
-    for ( i = 0; i < 200*N*N; i++)
+    for ( i = 0; i < 220*N*N; i++)
     {
         //Escogemos dos numeros al azar de los posibles que tenemos
 
@@ -67,10 +67,6 @@ int main (void){
 
         aux= (i%(N*N));
         pmonte=0;
-
-
-        
-        
 
         //Procedemso a calcular deltaE según todos los posibles casos, basandonos en las condiciones periodicas para no salirnos de la matriz
 
@@ -149,7 +145,7 @@ int main (void){
 
         if ((i%(N*N))==0)
         {
-                for ( k = 0; k < N; k++)
+           /*     for ( k = 0; k < N; k++)
             {
                 for (j = 0; j < N-1; j++)
                 {
@@ -160,16 +156,11 @@ int main (void){
 
             }
                 fich << endl;
-            pmonte++;
+           */
+           pmonte++;
         }
         
 
-    }
-
-
-    
-    
-    fich.close();
 
     mn=0;
     en=0;
@@ -177,12 +168,23 @@ int main (void){
 
     //Para el voluntario vamos a hacer la media
 
-    if ((pmonte%100)==0)
+    if (((pmonte%100)==0)&&(i%(N*N)==0))
     {
         mn= mn + magnetizacion(s);
+        cout << mn << ", " << pmonte;
     }
     
     mn= mn/(pmonte/100);
+
+    
+
+
+    }
+
+
+    
+    
+  //  fich.close();
 
 
     return 0;
@@ -222,16 +224,40 @@ float energia (int s[][N]){
     {
         for ( j = 1; j < N-1; j++)
         {
-            E=s[i][j]*(s[i][j+1]);
+            E=s[i][j]*(s[i][j+1]+s[i][j-1]+s[i+1][j]+s[i-1][j]);
         }
         
     }
+
+    //Ahora sumamos los terminos qu efaltaban por el desbordamiento (los extremos)
+
+    //El de i=0 y j=0
+    E=s[i][j]*(s[i][j+1]+s[i][N-1]+s[i+1][j]+s[N-1][j]);
+    //El de i=0 j=N-1
+    E=s[i][j]*(s[i][0]+s[i][j-1]+s[i+1][j]+s[N-1][j]);
+    //El de i=0 y j lo q sea
+
+    for ( j = 1; j < N-1; j++)
+    {
+        E=s[i][j]*(s[i][j+1]+s[i][j-1]+s[i+1][j]+s[N-1][j]);
+    }
+
+  //El de i=N-1 y j=0
+    E=s[i][j]*(s[i][j+1]+s[i][N-1]+s[0][j]+s[i-1][j]);
+    //El de i=N-1 j=N-1
+    E=s[i][j]*(s[i][0]+s[i][j-1]+s[0][j]+s[i-1][j]);
+    //El de i=N-1 y j lo q sea
+
+    for ( j = 1; j < N-1; j++)
+    {
+        E=s[i][j]*(s[i][j+1]+s[i][j-1]+s[0][j]+s[i-1][j]);
+    }      
     
 
 
 
 
 
-    return E;
+    return -(1/2)*E;
 }
 
