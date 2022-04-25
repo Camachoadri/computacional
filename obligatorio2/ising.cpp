@@ -8,14 +8,14 @@ using namespace std;
 
 #define N 32
 
-float magnetizacion (int s[][N]);
-float energia (int s[][N]);
+float magnetizacion (float s[][N]);
+float energia (float s[][N]);
 
 int main (void){
 
     float T;
-    int i, j,k,n,m,aux,pmonte, s[N][N];
-    float p, DE, xi, mn,en,cn, ex;
+    int i, j,k,n,m,aux,pmonte;
+    float p, DE, xi, mn,en,cn, ex,s[N][N], ma,prom_e,prom_ecuad,auxe;
     ofstream fich;
 
     //Inicializamso las variables necesarias
@@ -54,9 +54,18 @@ int main (void){
   
  //   fich.open("ising_data.dat");
 
+//Iniciamos el contador de monte carlos y del voluntario
+    pmonte=0;
 
+    mn=0;
+    en=0;
+    cn=0;
+    prom_e=0;
+    prom_ecuad=0;
 
-    for ( i = 0; i < 220*N*N; i++)
+//Comenzamos el algoritmo en si
+
+    for ( i = 0; i < pow(10,3)*N*N; i++)
     {
         //Escogemos dos numeros al azar de los posibles que tenemos
 
@@ -66,7 +75,7 @@ int main (void){
         //Escribamos la matriz en el fichero
 
         aux= (i%(N*N));
-        pmonte=0;
+        
 
         //Procedemso a calcular deltaE según todos los posibles casos, basandonos en las condiciones periodicas para no salirnos de la matriz
 
@@ -157,33 +166,34 @@ int main (void){
             }
                 fich << endl;
            */
-           pmonte++;
+           pmonte=pmonte +1;
         }
         
 
-
-    mn=0;
-    en=0;
-    cn=0;
 
     //Para el voluntario vamos a hacer la media
 
     if (((pmonte%100)==0)&&(i%(N*N)==0))
     {
-        mn= mn + magnetizacion(s);
-        cout << mn << ", " << pmonte;
+        ma=magnetizacion(s);
+        mn= mn + ma;
+        auxe=energia(s);
+        prom_e= prom_e + auxe;
+        prom_ecuad= prom_ecuad + auxe*auxe;
     }
+
     
+
+
+    }
+
+    //Dividimos para hacer la media
+
     mn= mn/(pmonte/100);
-
-    
-
-
-    }
-
-
-    
-    
+    prom_e= prom_e/(pmonte/100);
+    prom_ecuad=prom_ecuad/(pmonte/100);
+    en=prom_e/(2*N+N);
+    cn=(prom_ecuad-prom_e*prom_e)/(N*N*T);
   //  fich.close();
 
 
@@ -192,28 +202,28 @@ int main (void){
 }
 
 
-float magnetizacion (int s[][N]){
+float magnetizacion (float s[][N]){
 
 
-    float m;
+    float ma;
     int i,j;
-    m=0;
+    ma=0;
 
     for ( i = 0; i < N; i++)
     {
         for ( j = 0; j < N; j++)
         {
-            m=m+s[i][j];
+            ma=ma+s[i][j];
         }
         
     }
-    
-    m=m/(N*N);
+    ma=abs(ma);
+    ma=ma/(N*N);
 
-    return m;
+    return ma;
 }
 
-float energia (int s[][N]){
+float energia (float s[][N]){
 
     float E=0;
     int i,j;
