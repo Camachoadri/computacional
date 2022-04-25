@@ -6,28 +6,28 @@
 
 using namespace std;
 
-#define N 64
+#define N 32
 
-float magnetizacion (float s[][N]);
-float energia (float s[][N]);
+float magnetizacion (int s[][N]);
+float energia (int s[][N]);
 
 int main (void){
 
     float T;
-    int i, j,k,n,m,aux,pmonte;
-    float s[N][N],p, DE, xi, mn,en,cn;
+    int i, j,k,n,m,aux,pmonte, s[N][N];
+    float p, DE, xi, mn,en,cn, ex;
     ofstream fich;
 
     //Inicializamso las variables necesarias
 
-    T=3.;
+    T=2.5;
 
 
     for ( i = 0; i < N; i++)
     {
         for ( j = 0; j < N; j++)
         {
-            s[i][j]=1;
+            s[i][j]=-1;
         }
         
     }
@@ -68,6 +68,85 @@ int main (void){
         aux= (i%(N*N));
         pmonte=0;
 
+
+        
+        
+
+        //Procedemso a calcular deltaE según todos los posibles casos, basandonos en las condiciones periodicas para no salirnos de la matriz
+
+        if (n+1==N)
+        {
+            if (m+1==N)
+            {
+                DE=2.*s[n][m]*(s[0][m]+s[n-1][m]+s[n][0]+s[n][m-1]);
+            }
+            else if (m==0)
+            {
+                DE=2.*s[n][m]*(s[0][m]+s[n-1][m]+s[n][m+1]+s[n][N-1]);
+            }
+            else{
+
+                DE=2.*s[n][m]*(s[0][m]+s[n-1][m]+s[n][m+1]+s[n][m-1]);
+            }
+        }
+        else if (n==0)
+        {
+            if (m+1==N)
+            {
+                DE=2.*s[n][m]*(s[n+1][m]+s[N-1][m]+s[n][0]+s[n][m-1]);
+            }
+            else if (m==0)
+            {
+                DE=2.*s[n][m]*(s[n+1][m]+s[N-1][m]+s[n][m+1]+s[n][N-1]);
+            }
+            else{
+
+                DE=2.*s[n][m]*(s[n+1][m]+s[N-1][m]+s[n][m+1]+s[n][m-1]);
+            }
+
+        }
+        else{
+
+            if (m+1==N)
+            {
+                DE=2.*s[n][m]*(s[n+1][m]+s[n-1][m]+s[n][0]+s[n][m-1]);
+            }
+            if (m==0)
+            {
+                DE=2.*s[n][m]*(s[n+1][m]+s[n-1][m]+s[n][m+1]+s[n][N-1]);
+            }
+            else{
+
+                DE=2.*s[n][m]*(s[n+1][m]+s[n-1][m]+s[n][m+1]+s[n][m-1]);
+            }
+
+            
+
+        }
+
+        ex=exp(-DE/T);
+
+        if (ex<1)
+        {
+            p=ex;
+        }
+        else{
+            p=1.;
+        }
+        
+
+        //Calculamos un numero aleatorio nuevo, esta vez dividimos entre el maximo para que esté entre 0 y 1
+
+        xi = ((float) (rand()%(N+1)))/N;
+
+        //Si xi es menor que p, cambiamos el signo de nuestro elemento
+
+        if (xi<p)
+        {
+            s[n][m]= -s[n][m];
+        }
+
+
         if ((i%(N*N))==0)
         {
                 for ( k = 0; k < N; k++)
@@ -84,75 +163,11 @@ int main (void){
             pmonte++;
         }
         
-        
-
-        //Procedemso a calcular deltaE según todos los posibles casos, basandonos en las condiciones periodicas para no salirnos de la matriz
-
-        if (n+1>N)
-        {
-            if (m+1>N)
-            {
-                DE=2*s[n][m]*(s[0][m]+s[n-1][m]+s[n][0]+s[n][m-1]);
-            }
-            else if (m==0)
-            {
-                DE=2*s[n][m]*(s[0][m]+s[n-1][m]+s[n][m+1]+s[n][N-1]);
-            }
-            else{
-
-                DE=2*s[n][m]*(s[0][m]+s[n-1][m]+s[n][m+1]+s[n][m-1]);
-            }
-        }
-        else if (n==0)
-        {
-            if (m+1>N)
-            {
-                DE=2*s[n][m]*(s[n+1][m]+s[N-1][m]+s[n][1]+s[n][m-1]);
-            }
-            else if (m==0)
-            {
-                DE=2*s[n][m]*(s[n+1][m]+s[N-1][m]+s[n][m+1]+s[n][N-1]);
-            }
-            else{
-
-                DE=2*s[n][m]*(s[n+1][m]+s[N-1][m]+s[n][m+1]+s[n][m-1]);
-            }
-
-        }
-        else{
-
-            if (m+1>N)
-            {
-                DE=2*s[n][m]*(s[n+1][m]+s[n-1][m]+s[n][1]+s[n][m-1]);
-            }
-            if (m==0)
-            {
-                DE=2*s[n][m]*(s[n+1][m]+s[n-1][m]+s[n][m+1]+s[n][N-1]);
-            }
-            else{
-
-                DE=2*s[n][m]*(s[n+1][m]+s[n-1][m]+s[n][m+1]+s[n][m-1]);
-            }
-
-            
-
-        }
-
-        p = min(float(1),exp(-DE/T));
-
-        //Calculamos un numero aleatorio nuevo, esta vez dividimos entre el maximo para que esté entre 0 y 1
-
-        xi = (rand()%(N-1))/N;
-
-        //Si xi es menor que p, cambiamos el signo de nuestro elemento
-
-        if (xi<p)
-        {
-            s[n][m]= -s[n][m];
-        }
-        
 
     }
+
+
+    
     
     fich.close();
 
@@ -175,7 +190,7 @@ int main (void){
 }
 
 
-float magnetizacion (float s[][N]){
+float magnetizacion (int s[][N]){
 
 
     float m;
@@ -196,7 +211,7 @@ float magnetizacion (float s[][N]){
     return m;
 }
 
-float energia (float s[][N]){
+float energia (int s[][N]){
 
     float E=0;
     int i,j;
