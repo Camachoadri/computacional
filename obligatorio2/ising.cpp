@@ -17,7 +17,7 @@ int main (void){
 
     float T;
     int i, j,k,n,m,aux,pmonte,l;
-    float p, DE, xi, mn,en,cn, ex,s[N][N], ma,prom_e,prom_ecuad,auxe,fi, prom_s[N][N];
+    float p, DE, xi, mn,en,cn, ex,s[N][N], ma,prom_e,prom_ecuad,auxe,fi, prom_s[N][N],ma_cuad;
     ofstream fich;
 
     //Inicializamso las variables necesarias
@@ -65,6 +65,7 @@ int main (void){
     fi=0;
     prom_e=0;
     prom_ecuad=0;
+    ma_cuad=0;
 
     for ( i = 0; i < N; i++)
     {
@@ -191,6 +192,7 @@ int main (void){
     {
         ma=magnetizacion(s);
         mn= mn + ma;
+        ma_cuad= ma_cuad + ma*ma;
         auxe=energia(s);
         prom_e= prom_e + auxe;
         prom_ecuad= prom_ecuad + auxe*auxe;
@@ -211,21 +213,18 @@ int main (void){
                     prom_s[j][k]= prom_s[j][k] + s[j][k]*s[l][k];
                     l++;
                 }
-                
             }
-            
         }   
-        
     }
-
 }
 
     //Dividimos para hacer la media
 
-    mn= mn/(pmonte/100);
-    prom_e= prom_e/(pmonte/100);
-    prom_ecuad=prom_ecuad/(pmonte/100);
-    en=prom_e/(2*N+N);
+    mn= mn/(pmonte/100.);
+    ma_cuad=ma_cuad/(pmonte/100.);
+    prom_e= prom_e/(pmonte/100.);
+    prom_ecuad=prom_ecuad/(pmonte/100.);
+    en=prom_e/(2.*N*N);
     cn=(prom_ecuad-prom_e*prom_e)/(N*N*T);
 
     for ( j = 0; j < N; j++)
@@ -243,6 +242,8 @@ int main (void){
 
     
 
+    cout << en << " +- " << sqrt(prom_ecuad-prom_e*prom_e)/(2*N*N) << endl;
+    cout << mn << " +- " << sqrt(ma_cuad-mn*mn) << endl;
 
     return 0;
 
@@ -311,10 +312,10 @@ float energia (float s[][N]){
     }      
     
 
+    E=-(0.5)*E;
 
 
 
-
-    return -(1/2)*E;
+    return E;
 }
 
