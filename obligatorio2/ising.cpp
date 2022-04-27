@@ -7,6 +7,8 @@
 using namespace std;
 
 #define N 32
+//Definimos el aprametro para la funcion de correlacion
+#define Corr 7
 
 float magnetizacion (float s[][N]);
 float energia (float s[][N]);
@@ -14,8 +16,8 @@ float energia (float s[][N]);
 int main (void){
 
     float T;
-    int i, j,k,n,m,aux,pmonte;
-    float p, DE, xi, mn,en,cn, ex,s[N][N], ma,prom_e,prom_ecuad,auxe;
+    int i, j,k,n,m,aux,pmonte,l;
+    float p, DE, xi, mn,en,cn, ex,s[N][N], ma,prom_e,prom_ecuad,auxe,fi, prom_s[N][N];
     ofstream fich;
 
     //Inicializamso las variables necesarias
@@ -60,8 +62,20 @@ int main (void){
     mn=0;
     en=0;
     cn=0;
+    fi=0;
     prom_e=0;
     prom_ecuad=0;
+
+    for ( i = 0; i < N; i++)
+    {
+        for ( j = 0; j < N; j++)
+        {
+            prom_s[i][j]=0;
+        }
+        
+    }
+    
+
 
 //Comenzamos el algoritmo en si
 
@@ -180,12 +194,31 @@ int main (void){
         auxe=energia(s);
         prom_e= prom_e + auxe;
         prom_ecuad= prom_ecuad + auxe*auxe;
+
+          //Ahora vamos a calcular la funcion de correlacion
+
+        for ( j = 0; j < N; j++)
+        {
+            //Vamos a añadir un cotnador extra, para que cuando nos salgamos de la matriz empiece a contar por el uno, dos...
+            l=0;            
+            for ( k = 0; k < N; k++)
+            {
+                if ((j+Corr)<N)
+                {
+                    prom_s[j][k]= prom_s[j][k] + s[j][k]*s[j+Corr][k];
+                }
+                else{
+                    prom_s[j][k]= prom_s[j][k] + s[j][k]*s[l][k];
+                    l++;
+                }
+                
+            }
+            
+        }   
+        
     }
 
-    
-
-
-    }
+}
 
     //Dividimos para hacer la media
 
@@ -194,7 +227,21 @@ int main (void){
     prom_ecuad=prom_ecuad/(pmonte/100);
     en=prom_e/(2*N+N);
     cn=(prom_ecuad-prom_e*prom_e)/(N*N*T);
+
+    for ( j = 0; j < N; j++)
+    {
+        for ( k = 0; k < N; k++)
+        {
+            fi= fi + prom_s[j][k];
+        }
+            
+    }   
+    fi=fi/(N*N);
+    
+
   //  fich.close();
+
+    
 
 
     return 0;
