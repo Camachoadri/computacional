@@ -2,25 +2,44 @@
 #include<cmath>
 #include<fstream>
 #include <algorithm>
-
+#include <complex>
 
 using namespace std;
-#define N 32
-
+#define N 500
+#define h 0.1
+#define PI 3.14
+#define n_ciclos 100
 
 int main(void){
 
-    int i, n_ciclos, N;
-    float lambda, alpha[N], beta[N], xi[N][N], phi[N][N],s, v[N];
+    int j,n,k;
 
-    //Vamos ainiciar la matriz de la funcion de onda
+    complex <double> phi[N][N], alpha[N], beta[N], xi[N][N], i=(0.,1.);
+    double s, k_0, V[N], lambda;
 
-    for ( i = 0; i < N; i++)
+    //Vamos a iniciar la matriz de la funcion de onda y los parametros necesarios
+
+    lambda=0.3;
+    s=1./(4.*k_0*k_0);
+
+    k_0=n_ciclos*2*PI/(N);
+
+    for ( j = 1; j < N-1; j++)
     {
-        
-    }
-    
 
+        phi[j][0]= exp(((double) j)*k_0*i)*exp(-8*(4*j-(N*N))/(N*N));
+    } 
+
+    phi[0][0]=0;
+    phi[N][0]=0;
+
+    //Ahora vamos a iniciar la barrera de potencial
+
+    for ( j = 1; j < N-1; j++)
+    {
+        phi[j][0]= exp((double) j*k_0*i)*exp(-8*(4*j-(N*N))/(N*N));
+    } 
+    
 
 
     return 0;
