@@ -8,31 +8,33 @@ using namespace std;
 #define N 200
 #define h 0.1
 #define PI 3.14
-#define n_ciclos N/16
+#define n_ciclos N/8
 #define npasos 1000
 
 int main(void){
 
     int j,n,k;
 
-    complex <double> phi[200], alpha[200], beta[200], xi[200], i=(0.,1.);
+    complex <double> phi[200], alpha[200], beta[200], xi[200], i;
     double s, k_0, V[200], lambda;
+    ofstream fich;
+    i= complex<double>(0.0,1.0); 
 
     //Vamos a iniciar la matriz de la funcion de onda y los parametros necesarios
 
-    lambda=0.3;
-    s=1./(4.*k_0*k_0);
-
+    lambda=30;
     k_0=n_ciclos*2*PI/(N);
+    s=(1./(4.*k_0*k_0));
+
+    phi[0]=0;
+    phi[N-1]=0;
 
     for ( j = 1; j < N-1; j++)
     {
 
-        phi[j]= exp(((double) j)*k_0*i)*exp(-8*(4*j-(N*N))/(N*N));
+        phi[j]= exp(j*1.0*k_0*i)*exp(-8.*(4.*j-N)*(4.*j-N)/(N*N));
     } 
 
-    phi[0]=0;
-    phi[N-1]=0;
 
     //Ahora vamos a iniciar la barrera de potencial
 
@@ -52,21 +54,27 @@ int main(void){
     //Y generamos todos los alpha ya que no dependen de n
     for ( j = N-1; j > 0; j--)
     {
-        alpha[j-1]=-1./(-2.+2.*i/s+alpha[j]);
+        alpha[j-1]=-1./(-2.+2.*i/s+alpha[j]-V[j]);
     }
     
+    fich.open("schrodinger_data.dat"); 
 
 
     for ( n = 0; n < npasos; n++)
     {
         //Para empezar escribimos en el ficheros los valroes de la funcion de onda
 
+        for ( j = 0; j < N; j++)
+        {
+            fich << j*h << ", " << norm(phi[j]) << ", " << V[j] << endl;
+        }
         
+
         //Lo primero será incicializar y calcular beta
         beta[N-1]=0.;
         for ( j = N-1; j > 0; j--)
           {
-           beta[j-1]=(1./(-2.+2.*i/s+alpha[j]))*(4.*i*phi[j]/s);
+           beta[j-1]=(1./(-2.+2.*i/s+alpha[j]-V[j]))*(4.*i*phi[j]/s-beta[j]);
           }
         //Ahora ya podemos calcular la xi
         for ( j = 0; j < N-1 ; j++)
@@ -81,10 +89,11 @@ int main(void){
             phi[j]=xi[j]-phi[j];
         }
         
+        fich << endl;
 
     }
     
-    
+    fich.close();
 
 
     return 0;
