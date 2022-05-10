@@ -16,8 +16,8 @@ int main(void){
     int j,n,k;
 
     complex <double> phi[200], alpha[200], beta[200], xi[200], i;
-    double s, k_0, V[200], lambda;
-    ofstream fich;
+    double s, k_0, V[200], lambda, norma;
+    ofstream fich, norm;
     i= complex<double>(0.0,1.0); 
 
     //Vamos a iniciar la matriz de la funcion de onda y los parametros necesarios
@@ -58,14 +58,17 @@ int main(void){
     }
     
     fich.open("schrodinger_data.dat"); 
+    norm.open("norm.dat");
 
 
     for ( n = 0; n < npasos; n++)
     {
-        //Para empezar escribimos en el ficheros los valroes de la funcion de onda
-
+        //Para empezar escribimos en el ficheros los valroes de la funcion de onda, ademas los sumaremos todos y tmb ploteamos esta suma
+        norma=0;
+        
         for ( j = 0; j < N; j++)
         {
+            norma=norma + norm(phi[j]);
             fich << j*h << ", " << norm(phi[j]) << ", " << V[j] << endl;
         }
         
@@ -89,11 +92,13 @@ int main(void){
             phi[j]=xi[j]-phi[j];
         }
         
+        norm << norma << endl;
+        
         fich << endl;
-
     }
     
     fich.close();
+    norm.close();
 
 
     return 0;
