@@ -17,7 +17,11 @@ int main(void){
 
     complex <double> phi[200], alpha[200], beta[200], xi[200], i;
     double s, k_0, V[200], lambda, norma;
+<<<<<<< HEAD
     ofstream fich, norm_fich;
+=======
+    ofstream fich, norm;
+>>>>>>> a1fe74bb7a9ee7f1aa3591142ce0129467d7cf9a
     i= complex<double>(0.0,1.0); 
 
     //Vamos a iniciar la matriz de la funcion de onda y los parametros necesarios
@@ -58,7 +62,11 @@ int main(void){
     }
     
     fich.open("schrodinger_data.dat"); 
+<<<<<<< HEAD
     norm_fich.open("norma.dat");
+=======
+    norm.open("norm.dat");
+>>>>>>> a1fe74bb7a9ee7f1aa3591142ce0129467d7cf9a
 
 
     for ( n = 0; n < npasos; n++)
@@ -98,11 +106,17 @@ int main(void){
         
         norm_fich << norma << endl;
         
+        norm << norma << endl;
+        
         fich << endl;
     }
     
     fich.close();
+<<<<<<< HEAD
     norm_fich.close();
+=======
+    norm.close();
+>>>>>>> a1fe74bb7a9ee7f1aa3591142ce0129467d7cf9a
 
 
     return 0;
