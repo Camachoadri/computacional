@@ -1,0 +1,10 @@
+set xlabel "Temperatura"
+set ylabel "Magnetizacion por partícula"
+set key right
+set key font "0,8"
+set key spacing 0.8
+set key noautotitle
+set xtics 0.1
+
+
+plot "ajuste.dat"  with yerrorbars t 'Datos simulación', f(x) t 'Ajuste'

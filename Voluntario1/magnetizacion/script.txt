@@ -1,0 +1,14 @@
+set xlabel "Temperatura"
+set ylabel "Magnetizacion por partícula"
+set key right
+set key font "0,8"
+set key spacing 0.8
+set key noautotitle
+set xtics 0.1
+
+
+plot "magnetizacion16.dat"  with yerrorbars lt rgb "violet"  t 'Datos N=16',\
+'' with lines lt rgb "violet", "magnetizacion32.dat"  with yerrorbars lt rgb "red"  t 'Datos N=32',\
+'' with lines lt rgb "red", "magnetizacion64.dat"  with yerrorbars lt rgb "blue"  t 'Datos N=64',\
+'' with lines lt rgb "blue", "magnetizacion128.dat"  with yerrorbars lt rgb "purple"  t 'Datos N=128',\
+'' with lines lt rgb "purple"

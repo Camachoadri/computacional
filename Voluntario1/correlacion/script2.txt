@@ -1,0 +1,10 @@
+set xlabel "Indice de la función de correlación"
+set ylabel "Valor de la funcion de correlación"
+set key right
+set key font "0,8"
+set key spacing 0.8
+set key noautotitle
+set xtics 1
+
+
+plot "correlaciontocho128.dat" t 'Datos experimentales', f(x) t 'Ajuste'
