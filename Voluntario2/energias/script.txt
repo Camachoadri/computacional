@@ -1,0 +1,9 @@
+set xlabel"n"
+set ylabel "Energía"
+set key center right
+set key font "0,8"
+set key spacing 0.8
+set key noautotitle
+set xtics 50
+
+plot "energiac.dat"   lt rgb "violet"  t 'Energía Cinética', "energiapot.dat"  lt rgb "red"  t 'Energía Potencial', "energiatotal.dat"  lt rgb "blue"  t 'Energía total'

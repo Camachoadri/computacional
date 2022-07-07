@@ -1,0 +1,148 @@
+
+
+*******************************************************************************
+Thu Jul 07 18:33:26 2022
+
+
+FIT:    data read from 'transmisionbien.dat'
+        format = z
+        #datapoints = 4
+        residuals are weighted equally (unit weight)
+
+function used for fitting: f(x)
+	f(x)=a*e^(b*x)
+fitted parameters initialized with current variable values
+
+
+
+*******************************************************************************
+Thu Jul 07 18:33:38 2022
+
+
+FIT:    data read from 'transmisionbien.dat'
+        format = z
+        #datapoints = 4
+        residuals are weighted equally (unit weight)
+
+function used for fitting: f(x)
+	f(x)=a*exp(b*x)
+fitted parameters initialized with current variable values
+
+iter      chisq       delta/lim  lambda   a             b            
+   0 3.3166972046e+03   0.00e+00  8.31e+01    1.000000e+00   1.000000e+00
+   8 9.0964671909e-05  -4.06e-07  8.31e-07    9.598664e-01  -5.992835e-02
+
+After 8 iterations the fit converged.
+final sum of squares of residuals : 9.09647e-05
+rel. change during last iteration : -4.05527e-12
+
+degrees of freedom    (FIT_NDF)                        : 2
+rms of residuals      (FIT_STDFIT) = sqrt(WSSR/ndf)    : 0.00674406
+variance of residuals (reduced chisquare) = WSSR/ndf   : 4.54823e-05
+
+Final set of parameters            Asymptotic Standard Error
+=======================            ==========================
+a               = 0.959866         +/- 0.009125     (0.9506%)
+b               = -0.0599283       +/- 0.003656     (6.101%)
+
+correlation matrix of the fit parameters:
+                a      b      
+a               1.000 
+b              -0.904  1.000 
+
+
+*******************************************************************************
+Thu Jul 07 18:49:32 2022
+
+
+FIT:    data read from 'transmisionbien.dat'
+        format = z
+        x range restricted to [-2.71611 : 11.5890]
+        #datapoints = 8
+        residuals are weighted equally (unit weight)
+
+function used for fitting: f(x)
+	f(x)=a*exp(b*x)
+fitted parameters initialized with current variable values
+
+iter      chisq       delta/lim  lambda   a             b            
+   0 3.3375526888e-02   0.00e+00  5.47e-01    9.598664e-01  -5.992835e-02
+   4 9.3412508870e-04  -3.10e-02  5.47e-05    8.209397e-01  -3.972738e-02
+
+After 4 iterations the fit converged.
+final sum of squares of residuals : 0.000934125
+rel. change during last iteration : -3.10388e-07
+
+degrees of freedom    (FIT_NDF)                        : 6
+rms of residuals      (FIT_STDFIT) = sqrt(WSSR/ndf)    : 0.0124775
+variance of residuals (reduced chisquare) = WSSR/ndf   : 0.000155688
+
+Final set of parameters            Asymptotic Standard Error
+=======================            ==========================
+a               = 0.82094          +/- 0.01078      (1.313%)
+b               = -0.0397274       +/- 0.00281      (7.074%)
+
+correlation matrix of the fit parameters:
+                a      b      
+a               1.000 
+b              -0.874  1.000 
+
+
+*******************************************************************************
+Thu Jul 07 18:50:40 2022
+
+
+FIT:    data read from 'transmisionbien.dat'
+        format = z
+        #datapoints = 8
+        residuals are weighted equally (unit weight)
+
+function used for fitting: f(x)
+	f(x)=a^x
+fitted parameters initialized with current variable values
+
+
+
+*******************************************************************************
+Thu Jul 07 18:50:52 2022
+
+
+FIT:    data read from 'transmisionbien.dat'
+        format = z
+        #datapoints = 8
+        residuals are weighted equally (unit weight)
+
+function used for fitting: f(x)
+	f(x)=a^(x)
+fitted parameters initialized with current variable values
+
+
+
+*******************************************************************************
+Thu Jul 07 18:51:12 2022
+
+
+FIT:    data read from 'transmisionbien.dat'
+        format = z
+        #datapoints = 8
+        residuals are weighted equally (unit weight)
+
+function used for fitting: f(x)
+	f(x)=a**(x)
+fitted parameters initialized with current variable values
+
+iter      chisq       delta/lim  lambda   a            
+   0 5.9803551606e-01   0.00e+00  1.63e+00    8.209397e-01
+   4 3.9966574282e-02  -2.57e-01  1.63e-04    9.245995e-01
+
+After 4 iterations the fit converged.
+final sum of squares of residuals : 0.0399666
+rel. change during last iteration : -2.56708e-06
+
+degrees of freedom    (FIT_NDF)                        : 7
+rms of residuals      (FIT_STDFIT) = sqrt(WSSR/ndf)    : 0.0755613
+variance of residuals (reduced chisquare) = WSSR/ndf   : 0.00570951
+
+Final set of parameters            Asymptotic Standard Error
+=======================            ==========================
+a               = 0.9246           +/- 0.00789      (0.8533%)

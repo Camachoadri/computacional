@@ -1,0 +1,14 @@
+set xlabel"λ"
+set ylabel "Coeficiente de transmisión K"
+set key right
+set key font "0,8"
+set key spacing 0.8
+set key noautotitle
+set xtics 0.5
+set yrange [-0.05:1]
+set xrange [0:1]
+
+plot "transmision500.dat"  with yerrorbars lt rgb "violet"  t 'Datos N=500',\
+'' with lines lt rgb "violet", "transmision1000.dat"  with yerrorbars lt rgb "red"  t 'Datos N=1000',\
+'' with lines lt rgb "red", "transmision2000.dat"  with yerrorbars lt rgb "blue"  t 'Datos N=2000',\
+'' with lines lt rgb "blue"

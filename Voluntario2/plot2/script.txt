@@ -1,0 +1,9 @@
+set xlabel"n"
+set ylabel "Posición"
+set key right
+set key font "0,8"
+set key spacing 0.8
+set key noautotitle
+set xtics 50
+
+plot "posicion.dat"   with yerrorbars  t 'Valor esperado de la posicion'

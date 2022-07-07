@@ -1,0 +1,9 @@
+set xlabel"Numero de barreras"
+set ylabel "Coeficiente de Transmisión"
+set key right
+set key font "0,8"
+set key spacing 0.8
+set key noautotitle
+set xtics 1
+
+plot "transmisionbien.dat"   with yerrorbars  t 'Datos simulados', f(x) t'Ajuste'
