@@ -267,7 +267,7 @@ for ( contadorglobal = 0; contadorglobal < 1; contadorglobal++)
 
 
     //Volcamos k en el fichero
-    cout << lambda << "   " << Ktotal << "   " << errork << endl;
+    transmision << lambda << "   " << Ktotal << "   " << errork << endl;
 
 }
 
